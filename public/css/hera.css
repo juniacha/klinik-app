@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #F9F6F0; /* Soft Creamy Background */
+    color: #35445B;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Navbar HERA */
+.navbar-hera {
+    background-color: #35445B;
+    color: #ffffff;
+    padding: 18px 30px;
+    font-size: 20px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(53, 68, 91, 0.15);
+}
+
+/* Layout Container & Sidebar */
+.container-hera {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar-hera {
+    width: 250px;
+    background-color: #ffffff;
+    padding: 25px 15px;
+    border-right: 1px solid #E2E8F0;
+}
+
+.sidebar-hera a {
+    display: block;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #35445B;
+    font-weight: 600;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-hera a:hover, .sidebar-hera a.active {
+    background-color: #F9F6F0;
+    color: #934D56;
+}
+
+/* Area Konten Utama */
+.content-hera {
+    flex: 1;
+    padding: 35px 40px;
+}
+
+.content-hera h1, .content-hera h2 {
+    color: #35445B;
+    font-size: 26px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* Card Wrapper & Form */
+.card, .form-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(53, 68, 91, 0.06);
+    border-top: 5px solid #35445B !important;
+}
+
+/* DataTables & Alignment Header Maroon/Slate */
+table, .table, table.dataTable {
+    width: 100% !important;
+    background-color: #ffffff !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+th, .table thead th, table.dataTable thead th {
+    background-color: #35445B !important; /* Header Deep Slate */
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    padding: 14px 16px !important;
+}
+
+/* Tombol Aksi Horizontal Flex */
+.action-buttons {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+/* DataTables Spacing */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 20px !important;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 20px !important;
+}
+
+/* Status Badges */
+.badge-aktif {
+    color: #ffffff !important;
+    background-color: #A3A57E !important; /* Sage Green */
+    padding: 5px 14px !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+}
+
+.badge-emergency {
+    color: #ffffff !important;
+    background-color: #934D56 !important; /* Muted Rose */
+    padding: 5px 14px !important;
+    border-radius: 20px !important;
+    font-weight: 700 !important;
+}
