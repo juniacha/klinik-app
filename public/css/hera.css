@@ -1,127 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 body {
-    background-color: #F9F6F0; /* Soft Creamy Background */
-    color: #35445B;
+    background-color: #F0F3F7 !important;
+    color: #2D3748;
+}
+
+.app-wrapper {
+    display: flex;
     min-height: 100vh;
+    padding: 24px;
+    gap: 24px;
+}
+
+/* 1. SIDEBAR KIRI */
+.sidebar-donezo {
+    width: 260px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px 18px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border: 1px solid #E2E8F0;
 }
 
-/* Header Navbar HERA */
-.navbar-hera {
-    background-color: #35445B;
-    color: #ffffff;
-    padding: 18px 30px;
-    font-size: 20px;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(53, 68, 91, 0.15);
-}
-
-/* Layout Container & Sidebar */
-.container-hera {
+.brand-section {
     display: flex;
-    flex: 1;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-left: 8px;
 }
 
-.sidebar-hera {
-    width: 250px;
-    background-color: #ffffff;
-    padding: 25px 15px;
-    border-right: 1px solid #E2E8F0;
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    background: #35445B;
+    color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 22px;
 }
 
-.sidebar-hera a {
-    display: block;
-    padding: 12px 18px;
-    text-decoration: none;
-    color: #35445B;
-    font-weight: 600;
+.nav-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #A0AEC0;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     margin-bottom: 8px;
-    border-radius: 8px;
+    padding-left: 8px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar-menu li a, .sidebar-menu li button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    color: #4A5568;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 12px;
     transition: all 0.2s ease;
+    width: 100%;
 }
 
-.sidebar-hera a:hover, .sidebar-hera a.active {
-    background-color: #F9F6F0;
-    color: #934D56;
-}
-
-/* Area Konten Utama */
-.content-hera {
-    flex: 1;
-    padding: 35px 40px;
-}
-
-.content-hera h1, .content-hera h2 {
-    color: #35445B;
-    font-size: 26px;
-    margin-bottom: 25px;
+.sidebar-menu li.active a, .sidebar-menu li a:hover {
+    background: #EBF8FF;
+    color: #2B6CB0;
     font-weight: 700;
 }
 
-/* Card Wrapper & Form */
-.card, .form-card {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(53, 68, 91, 0.06);
-    border-top: 5px solid #35445B !important;
+/* 2. MAIN BOARD */
+.main-dashboard {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E2E8F0;
 }
 
-/* DataTables & Alignment Header Maroon/Slate */
-table, .table, table.dataTable {
-    width: 100% !important;
-    background-color: #ffffff !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    border: 1px solid #E2E8F0 !important;
+/* Stat Cards */
+.stat-card-donezo {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-th, .table thead th, table.dataTable thead th {
-    background-color: #35445B !important; /* Header Deep Slate */
-    color: #ffffff !important;
-    font-weight: 600 !important;
-    padding: 14px 16px !important;
+.stat-card-donezo.primary {
+    background: #35445B;
+    color: #ffffff;
+    border: none;
 }
 
-/* Tombol Aksi Horizontal Flex */
-.action-buttons {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 6px !important;
+.stat-card-donezo.primary .stat-title,
+.stat-card-donezo.primary .stat-sub {
+    color: rgba(255, 255, 255, 0.8);
 }
 
-/* DataTables Spacing */
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter {
-    margin-bottom: 20px !important;
+.stat-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #718096;
 }
 
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_paginate {
-    margin-top: 20px !important;
+.stat-number {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 4px 0;
 }
 
-/* Status Badges */
-.badge-aktif {
-    color: #ffffff !important;
-    background-color: #A3A57E !important; /* Sage Green */
-    padding: 5px 14px !important;
-    border-radius: 20px !important;
-    font-weight: 600 !important;
+/* Widget Container */
+.widget-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
 }
 
-.badge-emergency {
-    color: #ffffff !important;
-    background-color: #934D56 !important; /* Muted Rose */
-    padding: 5px 14px !important;
-    border-radius: 20px !important;
-    font-weight: 700 !important;
+/* Time Tracker Widget */
+.time-tracker-box {
+    background: #934D56;
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
 }
