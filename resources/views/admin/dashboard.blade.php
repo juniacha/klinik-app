@@ -154,6 +154,10 @@
                 <div class="time-tracker-box">
                     <small class="text-white-50 d-block mb-1">WAKTU OPERASIONAL KLINIK</small>
                     <h2 class="fw-bold mb-3">08:00 - 21:00</h2>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-light btn-sm rounded-circle px-3 fw-bold">▌▌</button>
+                        <button class="btn btn-danger btn-sm rounded-circle px-3 fw-bold">■</button>
+                    </div>
                 </div>
             </div>
         </div>
