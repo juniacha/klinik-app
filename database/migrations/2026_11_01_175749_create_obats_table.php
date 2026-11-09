@@ -8,10 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('obat', function (Blueprint $table) {
+        Schema::create('obats', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_obat', 20)->unique();
-            $table->string('nama_obat', 100);
+            $table->string('nama_obat');
+            $table->string('jenis');
             $table->integer('stok');
             $table->decimal('harga', 12, 2);
             $table->timestamps();

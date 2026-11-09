@@ -8,19 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('pendaftaran', function (Blueprint $table) {
+        Schema::create('pendaftarans', function (Blueprint $table) {
             $table->id();
-            $table->string('no_antrean', 20);
-            $table->foreignId('pasien_id')->constrained('pasien')->onDelete('cascade');
-            $table->foreignId('dokter_id')->constrained('dokter')->onDelete('cascade');
+            $table->string('no_antrean');
+            $table->foreignId('pasien_id')->constrained('pasiens')->onDelete('cascade');
+            $table->foreignId('dokter_id')->constrained('dokters')->onDelete('cascade');
             $table->date('tgl_periksa');
-            $table->enum('status', ['menunggu', 'diperiksa', 'pembayaran', 'selesai', 'batal'])->default('menunggu');
+            $table->text('keluhan');
+            $table->enum('status', ['menunggu', 'dipanggil', 'sedang diperiksa', 'selesai', 'batal'])->default('menunggu');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('pendaftaran');
+        Schema::dropIfExists('pendaftarans');
     }
 };

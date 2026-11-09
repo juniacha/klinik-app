@@ -23,22 +23,23 @@
             <span class="fw-bold fs-5" style="color: #35445B;">HERA</span>
         </div>
 
+        <!-- MENU SIDEBAR ADMIN -->
         <div class="nav-label">MENU</div>
         <ul class="sidebar-menu">
             <li class="{{ request()->is('admin/dashboard*') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}">Dashboard</a>
             </li>
-            <li class="{{ request()->is('pendaftaran*') ? 'active' : '' }}">
-                <a href="{{ route('pendaftaran.index') }}">Antrean & Pendaftaran</a>
+            <li class="{{ request()->is('*pendaftaran*') ? 'active' : '' }}">
+                <a href="{{ route('admin.pendaftaran.index') }}">Antrean & Pendaftaran</a>
             </li>
-            <li class="{{ request()->is('obat*') ? 'active' : '' }}">
-                <a href="{{ route('obat.index') }}">Data Obat</a>
+            <li class="{{ request()->is('*obat*') ? 'active' : '' }}">
+                <a href="{{ route('admin.obat.index') }}">Data Obat</a>
             </li>
-            <li class="{{ request()->is('dokter*') ? 'active' : '' }}">
-                <a href="#">Data Dokter</a>
+            <li class="{{ request()->is('*dokter*') ? 'active' : '' }}">
+                <a href="{{ route('admin.dokter.index') }}">Data Dokter</a>
             </li>
-            <li class="{{ request()->is('pasien*') ? 'active' : '' }}">
-                <a href="#">Data Pasien</a>
+            <li class="{{ request()->is('*pasien*') ? 'active' : '' }}">
+                <a href="{{ route('admin.pasien.index') }}">Data Pasien</a>
             </li>
         </ul>
 

@@ -6,7 +6,7 @@
 <div class="form-card">
     <h2 class="mb-4">Tambah Data Obat Baru</h2>
 
-    <form action="{{ route('obat.store') }}" method="POST">
+    <form action="{{ route('admin.obat.store') }}" method="POST">
         @csrf
 
         <div class="form-group mb-3">

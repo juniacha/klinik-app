@@ -8,20 +8,21 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('pasien', function (Blueprint $table) {
+        Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('no_rm', 20)->unique();
-            $table->string('nik', 16);
-            $table->date('tgl_lahir');
-            $table->enum('jenis_kelamin', ['L', 'P']);
-            $table->text('alamat');
+            $table->string('no_rm')->unique();
+            $table->string('nik', 16)->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
+            $table->string('no_hp')->nullable();
+            $table->text('alamat')->nullable();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('pasien');
+        Schema::dropIfExists('pasiens');
     }
 };

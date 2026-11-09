@@ -19,9 +19,9 @@
 
         <div class="nav-label">MENU</div>
         <ul class="sidebar-menu">
-            <li class="active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ route('pendaftaran.index') }}">Antrean & Pendaftaran</a></li>
-            <li><a href="{{ route('obat.index') }}">Data Obat</a></li>
+            <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ route('admin.pendaftaran.index') }}">Antrean & Pendaftaran</a></li>
+            <li><a href="{{ route('admin.obat.index') }}">Data Obat</a></li>
             <li><a href="#">Data Dokter</a></li>
             <li><a href="#">Data Pasien</a></li>
         </ul>
@@ -46,11 +46,6 @@
             <div>
                 <h3 class="fw-bold mb-1" style="color: #35445B;">Dashboard Overview</h3>
                 <p class="text-muted small mb-0">Kelola operasional, antrean, dan rekam medis pasien klinik HERA.</p>
-            </div>
-            <div class="d-flex gap-2">
-                <a href="{{ route('pendaftaran.index') }}" class="btn text-white rounded-pill px-4 fw-semibold" style="background: #934D56; font-size: 13px;">
-                    + Antrean Baru
-                </a>
             </div>
         </div>
 

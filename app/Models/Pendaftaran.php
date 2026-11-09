@@ -9,8 +9,8 @@ class Pendaftaran extends Model
 {
     use HasFactory;
 
-    // Menentukan nama tabel yang benar sesuai yang ada di hera_db
-    protected $table = 'pendaftaran';
+    // Arahkan ke nama tabel jamak yang ada di migration
+    protected $table = 'pendaftarans';
 
     protected $fillable = [
         'no_antrean',
@@ -19,16 +19,15 @@ class Pendaftaran extends Model
         'tgl_periksa',
         'status',
         'is_hadir',
-        'jumlah_panggilan',
     ];
 
     public function pasien()
     {
-        return $this->belongsTo(Pasien::class);
+        return $this->belongsTo(Pasien::class, 'pasien_id');
     }
 
     public function dokter()
     {
-        return $this->belongsTo(Dokter::class);
+        return $this->belongsTo(Dokter::class, 'dokter_id');
     }
 }

@@ -9,7 +9,7 @@
         <h3 class="fw-bold mb-1" style="color: #35445B;">Data Master Obat</h3>
         <p class="text-muted small mb-0">Kelola inventaris stok obat, kategori, dan harga satuan farmasi klinik HERA.</p>
     </div>
-    <a href="{{ route('obat.create') }}" class="btn text-white rounded-pill px-4 fw-semibold style-none" style="background-color: #934D56; font-size: 13px;">
+    <a href="{{ route('admin.obat.create') }}" class="btn text-white rounded-pill px-4 fw-semibold style-none" style="background-color: #934D56;">
         + Tambah Obat Baru
     </a>
 </div>

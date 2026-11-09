@@ -12,9 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['admin', 'dokter', 'pasien'])->default('pasien');
-            $table->string('no_hp', 20)->nullable();
+            $table->string('role')->default('pasien');
+            $table->string('no_hp')->nullable(); // <-- Tambahkan baris ini
             $table->rememberToken();
             $table->timestamps();
         });
