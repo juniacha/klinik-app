@@ -10,8 +10,15 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RekamMedisController;
+use App\Http\Controllers\DokterJadwalController;
 
-// Mengarahkan halaman utama (/) langsung ke Form Login
+/*
+|--------------------------------------------------------------------------
+| Web Routes - HERA Klinik App (Full 3 Role: Admin, Dokter, Pasien)
+|--------------------------------------------------------------------------
+*/
+
+// 1. Landing Page (Direct Redirect ke Login)
 Route::get('/', function () {
     return redirect()->route('login');
 })->name('landing');
@@ -63,10 +70,21 @@ Route::middleware(['auth'])->group(function () {
     // ROLE: DOKTER
     // =========================================================================
     Route::middleware(['role:dokter'])->prefix('dokter')->as('dokter.')->group(function () {
+        
+        // 1. Dashboard Antrean Pasien Hari Ini & Status Pelayanan
         Route::get('/dashboard', [DokterPemeriksaanController::class, 'index'])->name('dashboard');
+        
+        // 2. Detail Pendaftaran & Form Pemeriksaan Medis Pasien
         Route::get('/pemeriksaan/{pendaftaran}', [DokterPemeriksaanController::class, 'periksa'])->name('pemeriksaan.create');
         Route::post('/pemeriksaan/{pendaftaran}', [DokterPemeriksaanController::class, 'storePemeriksaan'])->name('pemeriksaan.store');
+        
+        // 3. Rekam Medis & Riwayat Diagnosis Pasien Sebelumnya
+        Route::get('/pasien/{pasien}/rekam-medis', [DokterPemeriksaanController::class, 'riwayatMedisPasien'])->name('rekam-medis.show');
         Route::get('/rekam-medis-pasien', [RekamMedisController::class, 'indexDokter'])->name('rekam-medis.index');
+        
+        // 4. Jadwal Praktik & Kelola Ketersediaan Dokter
+        Route::get('/jadwal', [DokterJadwalController::class, 'index'])->name('jadwal.index');
+        Route::patch('/jadwal/ketersediaan', [DokterJadwalController::class, 'updateKetersediaan'])->name('jadwal.update-ketersediaan');
     });
 
     // =========================================================================

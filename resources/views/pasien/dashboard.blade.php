@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- 1. HERO BANNER (Sesuai Referensi Astra Dent & CarePlus) -->
-<div class="hero-banner p-4 p-md-5 mb-5 shadow-sm position-relative overflow-hidden">
+<div class="hero-banner p-4 p-md-5 mb-5 shadow-sm position-relative overflow-hidden" style="background-color: #35445B;">
     <div class="row align-items-center g-4">
         <div class="col-lg-7">
             <span class="badge bg-white text-dark text-xs px-3 py-2 rounded-pill font-semibold mb-3">

@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($antreanHariIni as $a)
+                @foreach($antreanHariIni as $a)
                     <tr>
                         <td><span class="badge bg-secondary font-mono px-2 py-1">{{ $a->no_antrean }}</span></td>
                         <td class="fw-bold text-hera-dark">{{ $a->pasien->user->name ?? $a->pasien->nama_pasien ?? '-' }}</td>
@@ -77,11 +77,7 @@
                             </div>
                         </td>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center text-muted py-4">Belum ada antrean pasien untuk hari ini.</td>
-                    </tr>
-                @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -95,6 +91,9 @@
             language: {
                 search: "Cari Pasien:",
                 lengthMenu: "Tampilkan _MENU_ data",
+                zeroRecords: "Belum ada antrean pasien untuk hari ini.",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                infoEmpty: "Tidak ada data antrean",
                 paginate: { next: "➔", previous: "⬅" }
             }
         });
