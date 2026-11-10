@@ -8,7 +8,7 @@
     <div class="row align-items-center g-4">
         <div class="col-lg-7">
             <span class="badge bg-white text-dark text-xs px-3 py-2 rounded-pill font-semibold mb-3">
-                ✨ Hera Modern Health Care
+                Hera Modern Health Care
             </span>
             <h1 class="display-6 font-bold text-white mb-3">
                 Kesehatan Anda, <br><span style="color: #BA9796;">Prioritas Utama Kami</span>

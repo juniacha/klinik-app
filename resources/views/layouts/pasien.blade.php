@@ -37,7 +37,7 @@
     <main class="container py-4 min-vh-100">
         @if(session('success'))
             <div class="alert alert-success border-0 shadow-sm text-xs rounded-3 mb-4">
-                ✨ {{ session('success') }}
+                {{ session('success') }}
             </div>
         @endif
         @yield('content')

@@ -10,16 +10,17 @@ return new class extends Migration
     {
         Schema::create('obats', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_obat')->nullable();
             $table->string('nama_obat');
-            $table->string('jenis');
-            $table->integer('stok');
-            $table->decimal('harga', 12, 2);
+            $table->string('jenis')->nullable()->default('Umum');
+            $table->integer('stok')->default(0);
+            $table->decimal('harga', 12, 2)->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('obat');
+        Schema::dropIfExists('obats');
     }
 };

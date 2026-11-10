@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 
 class ObatController extends Controller
 {
-    // Menampilkan daftar data obat
     public function index()
     {
-        $obat = Obat::latest()->get(); // Menggunakan variabel $obat (singular)
-
+        $obat = Obat::latest()->get();
         return view('obat.index', compact('obat'));
     }
 
@@ -24,14 +22,24 @@ class ObatController extends Controller
     {
         $request->validate([
             'nama_obat' => 'required|string|max:255',
-            'jenis'     => 'required|string|max:100',
+            'jenis'     => 'nullable|string|max:100',
             'stok'      => 'required|integer|min:0',
             'harga'     => 'required|numeric|min:0',
+        ], [
+            'nama_obat.required' => 'Nama obat wajib diisi.',
+            'stok.required'      => 'Jumlah stok wajib diisi.',
+            'harga.required'     => 'Harga obat wajib diisi.',
         ]);
 
-        Obat::create($request->all());
+        Obat::create([
+            'kode_obat' => $request->kode_obat ?? ('OBT-' . rand(100, 999)),
+            'nama_obat' => $request->nama_obat,
+            'jenis'     => $request->jenis ?? 'Umum',
+            'stok'      => $request->stok,
+            'harga'     => $request->harga,
+        ]);
 
-        return redirect()->route('admin.obat.index')->with('success', 'Data obat berhasil ditambahkan.');
+        return redirect()->route('admin.obat.index')->with('success', 'Data obat berhasil ditambahkan!');
     }
 
     public function edit(Obat $obat)
@@ -43,20 +51,24 @@ class ObatController extends Controller
     {
         $request->validate([
             'nama_obat' => 'required|string|max:255',
-            'jenis'     => 'required|string|max:100',
             'stok'      => 'required|integer|min:0',
             'harga'     => 'required|numeric|min:0',
         ]);
 
-        $obat->update($request->all());
+        $obat->update([
+            'kode_obat' => $request->kode_obat,
+            'nama_obat' => $request->nama_obat,
+            'jenis'     => $request->jenis ?? 'Umum',
+            'stok'      => $request->stok,
+            'harga'     => $request->harga,
+        ]);
 
-        return redirect()->route('admin.obat.index')->with('success', 'Data obat berhasil diperbarui.');
+        return redirect()->route('admin.obat.index')->with('success', 'Data obat berhasil diperbarui!');
     }
 
     public function destroy(Obat $obat)
     {
         $obat->delete();
-
-        return redirect()->route('admin.obat.index')->with('success', 'Data obat berhasil dihapus.');
+        return redirect()->route('admin.obat.index')->with('success', 'Data obat berhasil dihapus!');
     }
 }

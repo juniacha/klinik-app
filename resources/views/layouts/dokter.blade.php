@@ -59,13 +59,13 @@
         <div class="container">
             @if(session('success'))
                 <div class="alert alert-success border-0 shadow-sm text-xs rounded-3 mb-4">
-                    ✨ {{ session('success') }}
+                    {{ session('success') }}
                 </div>
             @endif
 
             @if(session('error'))
                 <div class="alert alert-danger border-0 shadow-sm text-xs rounded-3 mb-4">
-                    ⚠️ {{ session('error') }}
+                    {{ session('error') }}
                 </div>
             @endif
 

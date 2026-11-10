@@ -9,9 +9,11 @@ class Obat extends Model
 {
     use HasFactory;
 
+    // Menghubungkan eksplisit ke tabel 'obats'
     protected $table = 'obats';
 
     protected $fillable = [
+        'kode_obat',
         'nama_obat',
         'jenis',
         'stok',
