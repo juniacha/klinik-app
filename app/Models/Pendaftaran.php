@@ -9,7 +9,6 @@ class Pendaftaran extends Model
 {
     use HasFactory;
 
-    // Arahkan ke nama tabel jamak yang ada di migration
     protected $table = 'pendaftarans';
 
     protected $fillable = [
@@ -17,6 +16,7 @@ class Pendaftaran extends Model
         'pasien_id',
         'dokter_id',
         'tgl_periksa',
+        'keluhan',
         'status',
         'is_hadir',
     ];
@@ -29,5 +29,10 @@ class Pendaftaran extends Model
     public function dokter()
     {
         return $this->belongsTo(Dokter::class, 'dokter_id');
+    }
+
+    public function rekamMedis()
+    {
+        return $this->hasOne(RekamMedis::class, 'pendaftaran_id');
     }
 }

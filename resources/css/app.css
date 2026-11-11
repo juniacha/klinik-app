@@ -1,11 +1,294 @@
-@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+:root {
+    --hera-maroon: #934D56;
+    --hera-rose-muted: #BA9796;
+    --hera-slate: #35445B;
+    --hera-olive: #A3A57E;
+    --hera-sage: #606757;
+    --hera-bg: #F0F3F7;
+    --hera-card-bg: #FFFFFF;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--hera-bg) !important;
+    color: #2D3748;
+}
+
+
+.app-wrapper {
+    display: flex;
+    min-height: 100vh;
+    padding: 24px;
+    gap: 24px;
+}
+
+.main-dashboard {
+    flex: 1;
+    background: var(--hera-card-bg);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E2E8F0;
+}
+
+.sidebar-donezo {
+    width: 260px;
+    background: var(--hera-card-bg);
+    border-radius: 20px;
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border: 1px solid #E2E8F0;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding-left: 8px;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--hera-slate);
+    color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 22px;
+}
+
+.nav-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #A0AEC0;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+    padding-left: 8px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.sidebar-menu li a,
+.sidebar-menu li button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    color: #4A5568;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.sidebar-menu li.active a,
+.sidebar-menu li a:hover {
+    background: #EBF8FF;
+    color: #2B6CB0;
+    font-weight: 700;
+}
+
+.stat-card-donezo {
+    background: var(--hera-card-bg);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.stat-card-donezo.primary {
+    background: var(--hera-slate);
+    color: #ffffff;
+    border: none;
+}
+
+.stat-card-donezo.primary .stat-title,
+.stat-card-donezo.primary .stat-sub {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #718096;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: 800;
+    margin: 4px 0;
+}
+
+.widget-card {
+    background: var(--hera-card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.time-tracker-box {
+    background: var(--hera-maroon);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.card-pasien-header {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(186, 151, 150, 0.3);
+    border-radius: 1.5rem;
+}
+
+.badge-hera {
+    background-color: rgba(186, 151, 150, 0.15);
+    color: var(--hera-maroon);
+}
+
+.card-live-queue {
+    background-color: var(--hera-slate);
+    border: 1px solid var(--hera-slate);
+    border-radius: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+.quick-action-card {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    border: 1px solid #E2E8F0;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.quick-action-card:hover {
+    border-color: rgba(186, 151, 150, 0.5);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.text-hera-dark {
+    color: var(--hera-slate) !important;
+}
+
+.text-hera-maroon {
+    color: var(--hera-maroon) !important;
+}
+
+.text-hera-muted {
+    color: var(--hera-sage) !important;
+}
+
+.btn-hera-primary {
+    background-color: var(--hera-maroon);
+    color: #ffffff;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-hera-primary:hover {
+    background-color: #7e3f47;
+    color: #ffffff;
+}
+
+.action-buttons-hera {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.table thead th,
+table.dataTable thead th,
+.table> :not(caption)>*>th {
+    background-color: #35445B !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    padding: 12px 16px !important;
+    border-bottom: none !important;
+    vertical-align: middle !important;
+}
+
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc:after {
+    color: #ffffff !important;
+    opacity: 0.85 !important;
+}
+
+.table thead tr th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.table thead tr th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 18px !important;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #CBD5E0 !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    outline: none !important;
+    margin-left: 8px !important;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 18px !important;
+}
+
+.table>thead,
+.table>thead>tr,
+.table>thead>tr>th,
+table.dataTable thead th,
+table.dataTable thead td,
+.table-light,
+.table-light>tr>th {
+    background-color: #35445B !important;
+    background: #35445B !important;
+    --bs-table-bg: #35445B !important;
+    --bs-table-color: #ffffff !important;
+    --bs-table-accent-bg: #35445B !important;
+    --bs-table-border-color: #35445B !important;
+    border-color: #35445B !important;
+    color: #ffffff !important;
+}
+
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc:after {
+    color: #ffffff !important;
+    opacity: 0.9 !important;
 }

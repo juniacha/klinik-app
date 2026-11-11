@@ -25,4 +25,14 @@ class Pasien extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function pendaftarans()
+    {
+        return $this->hasMany(Pendaftaran::class, 'pasien_id');
+    }
+
+    public function rekamMedis()
+    {
+        return $this->hasMany(RekamMedis::class, 'pasien_id');
+    }
 }

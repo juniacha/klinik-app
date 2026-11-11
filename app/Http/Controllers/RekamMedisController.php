@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
+use Illuminate\Support\Facades\Auth;
 
 class RekamMedisController extends Controller
 {
-    /**
-     * Menampilkan daftar riwayat rekam medis pasien yang sedang login
-     */
+    // 3. Rekam Medis Pasien
     public function indexPasien()
     {
         $user = Auth::user();
@@ -21,7 +18,7 @@ class RekamMedisController extends Controller
         if ($pasien) {
             $riwayatMedis = RekamMedis::with(['dokter', 'pendaftaran'])
                 ->where('pasien_id', $pasien->id)
-                ->orderBy('created_at', 'desc')
+                ->latest()
                 ->get();
         }
 

@@ -24,34 +24,34 @@ class PasienController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'          => 'required|string|max:255',
-            'email'         => 'required|email|unique:users,email',
-            'password'      => 'required|min:8',
-            'nik'           => 'nullable|string|max:16',
-            'tgl_lahir'     => 'nullable|date',
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'nik' => 'nullable|string|max:16',
+            'tgl_lahir' => 'nullable|date',
             'jenis_kelamin' => 'nullable|in:L,P',
-            'no_hp'         => 'nullable|string|max:15',
-            'alamat'        => 'nullable|string',
+            'no_hp' => 'nullable|string|max:15',
+            'alamat' => 'nullable|string',
         ]);
 
         $user = User::create([
-            'name'     => $request->nama,
-            'email'    => $request->email,
+            'name' => $request->nama,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role'     => 'pasien',
-            'no_hp'    => $request->no_hp,
+            'role' => 'pasien',
+            'no_hp' => $request->no_hp,
         ]);
 
         $noRm = 'RM-' . str_pad($user->id, 6, '0', STR_PAD_LEFT);
 
         Pasien::create([
-            'user_id'       => $user->id,
-            'no_rm'         => $noRm,
-            'nik'           => $request->nik,
-            'tgl_lahir'     => $request->tgl_lahir,
+            'user_id' => $user->id,
+            'no_rm' => $noRm,
+            'nik' => $request->nik,
+            'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'no_hp'         => $request->no_hp,
-            'alamat'        => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
         ]);
 
         return redirect()->route('admin.pasien.index')->with('success', "Pasien berhasil ditambahkan. No. RM: {$noRm}");
@@ -65,25 +65,25 @@ class PasienController extends Controller
     public function update(Request $request, Pasien $pasien)
     {
         $request->validate([
-            'nama'          => 'required|string|max:255',
-            'nik'           => 'nullable|string|max:16',
-            'tgl_lahir'     => 'nullable|date',
+            'nama' => 'required|string|max:255',
+            'nik' => 'nullable|string|max:16',
+            'tgl_lahir' => 'nullable|date',
             'jenis_kelamin' => 'nullable|in:L,P',
-            'no_hp'         => 'nullable|string|max:15',
-            'alamat'        => 'nullable|string',
+            'no_hp' => 'nullable|string|max:15',
+            'alamat' => 'nullable|string',
         ]);
 
         $pasien->update([
-            'nik'           => $request->nik,
-            'tgl_lahir'     => $request->tgl_lahir,
+            'nik' => $request->nik,
+            'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'no_hp'         => $request->no_hp,
-            'alamat'        => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
         ]);
 
         if ($pasien->user) {
             $pasien->user->update([
-                'name'  => $request->nama,
+                'name' => $request->nama,
                 'no_hp' => $request->no_hp,
             ]);
         }
@@ -105,7 +105,8 @@ class PasienController extends Controller
     // Melihat Riwayat Kunjungan Pasien
     public function riwayat(Pasien $pasien)
     {
-        $riwayat = Pendaftaran::with(['dokter', 'rekamMedis'])
+        $pasien->load('user');
+        $riwayat = Pendaftaran::with(['dokter.user', 'rekamMedis'])
             ->where('pasien_id', $pasien->id)
             ->latest()
             ->get();

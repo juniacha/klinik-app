@@ -11,7 +11,6 @@ class Dokter extends Model
 
     protected $table = 'dokters';
 
-    // Wajib daftarkan semua kolom yang bisa di-insert via form
     protected $fillable = [
         'user_id',
         'nama_dokter',
@@ -23,5 +22,15 @@ class Dokter extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function pendaftarans()
+    {
+        return $this->hasMany(Pendaftaran::class, 'dokter_id');
+    }
+
+    public function rekamMedis()
+    {
+        return $this->hasMany(RekamMedis::class, 'dokter_id');
     }
 }
