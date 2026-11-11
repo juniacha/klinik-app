@@ -2,144 +2,126 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pendaftaran;
-use App\Models\RekamMedis;
-use App\Models\Obat;
-use App\Models\Pasien;
-use App\Models\Dokter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Pendaftaran;
+use App\Models\RekamMedis;
+use App\Models\Pasien;
+use App\Models\Dokter;
+use App\Models\Obat;
 
 class DokterPemeriksaanController extends Controller
 {
     /**
-     * Dashboard Dokter: Menampilkan Daftar Pasien Hari Ini & Status Antrean
+     * Dashboard Dokter (Daftar Antrean Pasien Hari Ini)
      */
     public function index()
     {
         $user = Auth::user();
         $dokter = Dokter::where('user_id', $user->id)->first();
 
-        if (!$dokter) {
-            return redirect()->back()->with('error', 'Profil dokter tidak ditemukan.');
-        }
-
-        // Daftar Antrean Pasien Hari Ini
         $antreanHariIni = Pendaftaran::with(['pasien.user'])
-            ->where('dokter_id', $dokter->id)
-            ->whereDate('tgl_periksa', now()->today())
-            ->orderBy('id', 'asc')
+            ->whereDate('tgl_periksa', date('Y-m-d'))
             ->get();
 
-        // Riwayat Kunjungan / Pemeriksaan Selesai
-        $riwayatKunjungan = Pendaftaran::with(['pasien.user', 'rekamMedis'])
-            ->where('dokter_id', $dokter->id)
+        $riwayatKunjungan = Pendaftaran::with(['pasien.user'])
             ->where('status', 'selesai')
             ->latest()
-            ->take(10)
+            ->take(5)
             ->get();
 
         return view('dokter.dashboard', compact('dokter', 'antreanHariIni', 'riwayatKunjungan'));
     }
 
     /**
-     * Membuka Detail Pendaftaran & Form Pemeriksaan Pasien
+     * Form Pemeriksaan Pasien (Input Diagnosa & Resep)
      */
-    public function periksa(Pendaftaran $pendaftaran)
+    public function periksa($id)
     {
-        $user = Auth::user();
-        $dokter = Dokter::where('user_id', $user->id)->first();
+        $pendaftaran = Pendaftaran::with(['pasien.user', 'dokter'])->findOrFail($id);
 
-        // Ambil riwayat rekam medis pasien sebelumnya
+        // Update status antrean menjadi 'sedang diperiksa'
+        $pendaftaran->update(['status' => 'sedang diperiksa']);
+
+        $obats = Obat::all();
+
         $riwayatSebelumnya = RekamMedis::with('dokter')
             ->where('pasien_id', $pendaftaran->pasien_id)
             ->latest()
             ->get();
 
-        // Ambil daftar obat yang tersedia di stok klinik
-        $obats = Obat::where('stok', '>', 0)->get();
-
-        // Update status antrean menjadi 'sedang diperiksa'
-        if ($pendaftaran->status === 'menunggu' || $pendaftaran->status === 'dipanggil') {
-            $pendaftaran->update(['status' => 'sedang diperiksa']);
-        }
-
-        return view('dokter.pemeriksaan.create', compact('pendaftaran', 'riwayatSebelumnya', 'obats', 'dokter'));
+        return view('dokter.pemeriksaan.create', compact('pendaftaran', 'obats', 'riwayatSebelumnya'));
     }
 
     /**
-     * Menyimpan Hasil Pemeriksaan, Diagnosa, Tindakan, dan Resep Obat ke Rekam Medis
+     * Simpan Hasil Pemeriksaan & Rekam Medis Pasien
      */
-    public function storePemeriksaan(Request $request, Pendaftaran $pendaftaran)
+    public function storePemeriksaan(Request $request, $id)
     {
         $request->validate([
-            'keluhan'          => 'required|string',
-            'diagnosa'         => 'required|string|max:255',
-            'tindakan'         => 'required|string',
-            'catatan_dokter'   => 'nullable|string',
-            'resep_obat'       => 'nullable|array',
-            'resep_obat.*.id'  => 'nullable|exists:obats,id',
-            'dosis'            => 'nullable|array',
-            'aturan_pakai'     => 'nullable|array',
-        ], [
-            'keluhan.required'  => 'Keluhan pasien wajib diisi.',
-            'diagnosa.required' => 'Hasil diagnosa wajib diisi.',
-            'tindakan.required' => 'Tindakan medis wajib diisi.',
+            'diagnosa' => 'required|string',
+            'tindakan' => 'required|string',
         ]);
 
-        // Menyusun rincian resep obat, dosis, dan aturan penggunaan
-        $rincianResep = [];
-        if ($request->has('resep_obat')) {
-            foreach ($request->resep_obat as $index => $item) {
-                if (!empty($item['id'])) {
-                    $obatModel = Obat::find($item['id']);
-                    $dosis = $request->dosis[$index] ?? '1x1';
-                    $aturan = $request->aturan_pakai[$index] ?? 'Sesudah Makan';
+        $pendaftaran = Pendaftaran::findOrFail($id);
 
-                    if ($obatModel) {
-                        $rincianResep[] = "- {$obatModel->nama_obat} | Dosis: {$dosis} | Aturan: {$aturan}";
-                        
-                        // Kelola/Kurangi stok obat jika ada
-                        if ($obatModel->stok > 0) {
-                            $obatModel->decrement('stok', 1);
+        // Format rincian resep obat
+        $rincianResep = [];
+        if ($request->has('resep_obat') && is_array($request->resep_obat)) {
+            foreach ($request->resep_obat as $key => $itemObat) {
+                if (!empty($itemObat['id'])) {
+                    $obatObj = Obat::find($itemObat['id']);
+                    if ($obatObj) {
+                        $dosis = $request->dosis[$key] ?? 'Secara teratur';
+                        $aturan = $request->aturan_pakai[$key] ?? 'Sesudah makan';
+
+                        // Kurangi stok obat jika tersedia
+                        if ($obatObj->stok > 0) {
+                            $obatObj->decrement('stok', 1);
                         }
+
+                        $rincianResep[] = "- {$obatObj->nama_obat} | Dosis: {$dosis} | Aturan: {$aturan}";
                     }
                 }
             }
         }
 
-        $stringResepFormat = !empty($rincianResep) 
-            ? implode("\n", $rincianResep) 
-            : ($request->catatan_resep_manual ?? 'Tidak ada resep obat khusus.');
+        $stringResepFormat = !empty($rincianResep)
+            ? implode("\n", $rincianResep)
+            : ($request->catatan_dokter ?? 'Tidak ada resep obat khusus.');
 
-        // 1. Simpan ke Tabel Rekam Medis
+        // Simpan ke Rekam Medis (Tanpa menyisipkan kolom 'keluhan' di tabel rekam_medis)
         RekamMedis::create([
             'pendaftaran_id' => $pendaftaran->id,
-            'pasien_id'      => $pendaftaran->pasien_id,
-            'dokter_id'      => $pendaftaran->dokter_id,
-            'keluhan'        => $request->keluhan,
-            'diagnosa'       => $request->diagnosa,
-            'tindakan'       => $request->tindakan,
-            'resep_obat'     => $stringResepFormat,
-            'catatan'        => $request->catatan_dokter,
+            'pasien_id' => $pendaftaran->pasien_id,
+            'dokter_id' => $pendaftaran->dokter_id ?? Auth::id(),
+            'diagnosa' => $request->diagnosa,
+            'tindakan' => $request->tindakan,
+            'resep_obat' => $stringResepFormat,
+            'catatan' => $request->catatan_dokter ?? null,
         ]);
 
-        // 2. Perbarui Keluhan di Pendaftaran & Status Antrean Selesai
-        $pendaftaran->update([
-            'keluhan' => $request->keluhan,
-            'status'  => 'selesai'
-        ]);
+        // Update keluhan di tabel pendaftarans jika ada perubahan
+        if ($request->has('keluhan')) {
+            $pendaftaran->update(['keluhan' => $request->keluhan]);
+        }
 
-        return redirect()->route('dokter.dashboard')->with('success', 'Pemeriksaan medis berhasil disimpan dan rekam medis telah diperbarui.');
+        // Ubah status pendaftaran antrean menjadi 'selesai'
+        $pendaftaran->update(['status' => 'selesai']);
+
+        return redirect()->route('dokter.dashboard')
+            ->with('success', "Pemeriksaan pasien antrean {$pendaftaran->no_antrean} berhasil disimpan dan status diperbarui menjadi Selesai.");
     }
 
     /**
-     * Melihat Riwayat Medis Lengkap Pasien Sesuai ID Pasien
+     * Riwayat Rekam Medis Pasien Spesifik
      */
-    public function riwayatMedisPasien(Pasien $pasien)
+    public function riwayatMedisPasien($pasien_id)
     {
+        $pasien = Pasien::with('user')->findOrFail($pasien_id);
+
         $riwayatMedis = RekamMedis::with(['dokter', 'pendaftaran'])
-            ->where('pasien_id', $pasien->id)
+            ->where('pasien_id', $pasien_id)
             ->latest()
             ->get();
 

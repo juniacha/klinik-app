@@ -125,8 +125,7 @@
                                     <td><span class="badge bg-secondary font-mono px-2 py-1">{{ $a->no_antrean }}</span></td>
                                     <td class="fw-bold text-hera-dark">
                                         {{ $a->pasien->user->name ?? $a->pasien->nama_pasien ?? '-' }}</td>
-                                    <td><span
-                                            class="badge bg-light text-dark border">{{ $a->pasien->no_rm ?? 'RM-000001' }}</span>
+                                    <td><span class="badge bg-light text-dark border">{{ $a->pasien->no_rm ?? 'RM-000001' }}</span>
                                     </td>
                                     <td><span class="text-muted">{{ Str::limit($a->keluhan ?? 'Pemeriksaan rutin', 30) }}</span>
                                     </td>
@@ -147,7 +146,8 @@
                                                 class="btn btn-sm btn-primary font-bold px-3 text-xs">
                                                 Periksa Pasien
                                             </a>
-                                            <a href="{{ route('dokter.rekam-medis.show', $a->pasien_id) }}"
+                                            <!-- PERBAIKAN: dokter.pasien.rekam-medis -->
+                                            <a href="{{ route('dokter.pasien.rekam-medis', $a->pasien_id) }}"
                                                 class="btn btn-sm btn-outline-info text-xs">
                                                 Riwayat
                                             </a>
@@ -205,7 +205,7 @@
                 </a>
             </div>
 
-            <!-- CARD 2: PASIEN TERAKHIR / RIWAYAT KUNJUNGAN SELSEAI -->
+            <!-- CARD 2: PASIEN TERAKHIR / RIWAYAT KUNJUNGAN SELESAI -->
             <div class="card-profile-dokter p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-xs font-bold text-muted text-uppercase tracking-wider">Pasien Terakhir</span>
@@ -222,7 +222,8 @@
                                 <div class="text-[10px] text-muted">
                                     {{ \Carbon\Carbon::parse($rk->updated_at)->format('H:i WIB') }}</div>
                             </div>
-                            <a href="{{ route('dokter.rekam-medis.show', $rk->pasien_id) }}"
+                            <!-- PERBAIKAN: dokter.pasien.rekam-medis -->
+                            <a href="{{ route('dokter.pasien.rekam-medis', $rk->pasien_id) }}"
                                 class="btn btn-xs btn-outline-primary py-0.5 px-2 text-[10px]">
                                 Detail
                             </a>

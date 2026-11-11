@@ -14,10 +14,9 @@
             </a>
         </div>
 
-        @if(!$selectedPoli)
-            <!-- LANGKAH 1: PILIH CARD POLIKLINIK (MURNI URL GET LINK) -->
+        @if(empty($selectedPoli))
             <div class="mb-5">
-                <h2 class="h6 font-bold text-hera-dark mb-3">1. Pilih Poliklinik Tujuan</h2>
+                <h2 class="h6 font-bold text-hera-dark mb-3">Pilih Poliklinik Tujuan</h2>
 
                 <div class="row g-3">
                     <div class="col-12 col-md-4">
@@ -56,30 +55,11 @@
                             </div>
                         </a>
                     </div>
-
-                    <div class="col-12 col-md-4">
-                        <a href="{{ route('pasien.booking.create', ['poli' => 'Poli THT']) }}" class="text-decoration-none">
-                            <div class="card card-poli border-0 shadow-sm rounded-4 p-4 text-center h-100">
-                                <h3 class="h6 font-bold text-hera-dark mb-1">Poli THT</h3>
-                                <p class="text-xs text-muted mb-0">Pemeriksaan kesehatan Telinga, Hidung & Tenggorokan.</p>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-12 col-md-4">
-                        <a href="{{ route('pasien.booking.create', ['poli' => 'Poli Kandungan']) }}"
-                            class="text-decoration-none">
-                            <div class="card card-poli border-0 shadow-sm rounded-4 p-4 text-center h-100">
-                                <h3 class="h6 font-bold text-hera-dark mb-1">Poli Kebidanan & Kandungan</h3>
-                                <p class="text-xs text-muted mb-0">Pemeriksaan kehamilan & konsultasi reproduksi.</p>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
 
         @else
-            <!-- LANGKAH 2: FORM BOOKING (DOKTER DIRECT / TANPA DROPDOWN) -->
+            <!-- LANGKAH 2: FORM BOOKING (DOKTER OTOMATIS) -->
             <form action="{{ route('pasien.booking.store') }}" method="POST">
                 @csrf
 
@@ -144,7 +124,6 @@
                         </div>
                     </div>
 
-                    <!-- FORM KANAN: DOKTER PENANGGUNG JAWAB -->
                     <div class="col-lg-5">
                         <div
                             class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100 d-flex flex-column justify-content-between">
@@ -181,6 +160,11 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <p class="text-xs text-muted text-center mt-3 mb-0">
+                                    Dokter disesuaikan secara otomatis dari database untuk spesialisasi
+                                    <strong>{{ $selectedPoli }}</strong>.
+                                </p>
                             </div>
 
                             <div class="mt-4">

@@ -2,41 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Pendaftaran;
 use App\Models\Pasien;
 use App\Models\Dokter;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PendaftaranController extends Controller
 {
-    /**
-     * Menampilkan daftar seluruh antrean & pendaftaran untuk Admin
-     */
+    /*1. Halaman Daftar Antrean & Pendaftaran*/
     public function index()
     {
         $pendaftaran = Pendaftaran::with(['pasien.user', 'dokter'])
             ->latest()
             ->get();
 
-        return view('admin.pendaftaran.index', compact('pendaftaran'));
+        if (view()->exists('admin.pendaftaran.index')) {
+            return view('admin.pendaftaran.index', compact('pendaftaran'));
+        }
+
+        return view('pendaftaran.index', compact('pendaftaran'));
     }
 
-    /**
-     * Form Booking Antrean Mandiri oleh Pasien
-     */
+    /* 2. Form Booking Antrean Mandiri Pasien*/
     public function createPasien(Request $request)
     {
         $user = Auth::user();
         $pasien = Pasien::where('user_id', $user->id)->first();
-        $dokter = Dokter::all();
+        $selectedPoli = $request->query('poli');
 
-        return view('pasien.pendaftaran.create', compact('pasien', 'dokter'));
+        $dokter = null;
+        if ($selectedPoli) {
+            $keyword = str_replace(['Poli ', '& Mulut', '(Pediatri)', ' Kebidanan &'], '', $selectedPoli);
+            $keyword = trim($keyword);
+
+            $dokter = Dokter::where('spesialis', 'like', '%' . $keyword . '%')->first();
+
+            if (!$dokter) {
+                $dokter = Dokter::first();
+            }
+        }
+
+        return view('pasien.pendaftaran.create', compact('pasien', 'dokter', 'selectedPoli'));
     }
 
-    /**
-     * Simpan Booking Antrean Mandiri oleh Pasien
-     */
+    /** 3. Simpan Data Pendaftaran Antrean Pasien*/
     public function storePasien(Request $request)
     {
         $request->validate([
@@ -44,7 +54,7 @@ class PendaftaranController extends Controller
             'tgl_periksa' => 'required|date|after_or_equal:today',
             'keluhan' => 'required|string',
         ], [
-            'dokter_id.required' => 'Dokter penanggung jawab wajib dipilih.',
+            'dokter_id.required' => 'Dokter penanggung jawab wajib ditentukan.',
             'tgl_periksa.required' => 'Tanggal periksa wajib diisi.',
             'keluhan.required' => 'Keluhan utama wajib diisi.',
         ]);
@@ -70,27 +80,18 @@ class PendaftaranController extends Controller
         return redirect()->route('pasien.dashboard')->with('success', "Booking berhasil! Nomor Antrean Anda: {$noAntrean}");
     }
 
-    /**
-     * Update Status Antrean oleh Admin (menunggu, dipanggil, sedang diperiksa, selesai, batal)
-     */
-    public function updateStatus(Request $request, Pendaftaran $pendaftaran)
+    /*4. Update Status Antrean oleh Admin*/
+    public function updateStatus(Request $request, $id)
     {
         $request->validate([
             'status' => 'required|in:menunggu,dipanggil,sedang diperiksa,selesai,batal',
         ]);
 
-        $pendaftaran->update(['status' => $request->status]);
+        $pendaftaran = Pendaftaran::findOrFail($id);
+        $pendaftaran->update([
+            'status' => $request->status,
+        ]);
 
-        return redirect()->back()->with('success', 'Status antrean berhasil diperbarui.');
-    }
-
-    /**
-     * Hapus Data Antrean oleh Admin
-     */
-    public function destroy(Pendaftaran $pendaftaran)
-    {
-        $pendaftaran->delete();
-
-        return redirect()->back()->with('success', 'Data antrean berhasil dihapus.');
+        return redirect()->back()->with('success', "Status antrean {$pendaftaran->no_antrean} berhasil diperbarui menjadi {$request->status}.");
     }
 }

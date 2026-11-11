@@ -10,29 +10,35 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function showLoginForm() { return view('auth.login'); }
-    public function showRegisterForm() { return view('register'); }
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+    public function showRegisterForm()
+    {
+        return view('register');
+    }
 
     public function register(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
-            'nik'      => 'nullable|string|max:16',
+            'nik' => 'nullable|string|max:16',
         ]);
 
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role'     => 'pasien',
+            'role' => 'pasien',
         ]);
 
         Pasien::create([
             'user_id' => $user->id,
-            'no_rm'   => 'RM-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
-            'nik'     => $request->nik,
+            'no_rm' => 'RM-' . str_pad($user->id, 6, '0', STR_PAD_LEFT),
+            'nik' => $request->nik,
         ]);
 
         Auth::login($user);
@@ -57,8 +63,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+
+        // Hancurkan session dan buat token baru
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar dari sistem.');
+
+        return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
     }
 }
