@@ -9,9 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class DokterJadwalController extends Controller
 {
-    /**
-     * Melihat Jadwal Praktik Dokter & Ketersediaan Jam Layanan
-     */
+
+    //Melihat Jadwal Praktik Dokter & Ketersediaan Jam Layanan
     public function index()
     {
         $user = Auth::user();
@@ -27,9 +26,7 @@ class DokterJadwalController extends Controller
         return view('dokter.jadwal.index', compact('dokter', 'jadwalPemeriksaan'));
     }
 
-    /**
-     * Mengelola Status Ketersediaan Praktik Dokter (Aktif / Tidak Praktik)
-     */
+    //Mengelola Status Ketersediaan Praktik Dokter
     public function updateKetersediaan(Request $request)
     {
         $user = Auth::user();

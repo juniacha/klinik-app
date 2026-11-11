@@ -3,7 +3,6 @@
 @section('title', 'Dashboard Overview')
 
 @section('content')
-    <!-- Title & Action Section -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h3 class="fw-bold mb-1" style="color: #35445B;">Dashboard Overview</h3>
@@ -11,7 +10,6 @@
         </div>
     </div>
 
-    <!-- 4 Stat Cards Row -->
     <div class="row g-3 mb-4">
         <div class="col-md-3">
             <div class="stat-card-donezo primary">

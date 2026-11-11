@@ -12,9 +12,7 @@ use App\Models\Obat;
 
 class DokterPemeriksaanController extends Controller
 {
-    /**
-     * Dashboard Dokter (Daftar Antrean Pasien Hari Ini)
-     */
+    //Dashboard Dokter (Daftar Antrean Pasien Hari Ini)
     public function index()
     {
         $user = Auth::user();
@@ -33,9 +31,8 @@ class DokterPemeriksaanController extends Controller
         return view('dokter.dashboard', compact('dokter', 'antreanHariIni', 'riwayatKunjungan'));
     }
 
-    /**
-     * Form Pemeriksaan Pasien (Input Diagnosa & Resep)
-     */
+
+    //Form Pemeriksaan Pasien (Input Diagnosa & Resep)
     public function periksa($id)
     {
         $pendaftaran = Pendaftaran::with(['pasien.user', 'dokter'])->findOrFail($id);
@@ -53,9 +50,8 @@ class DokterPemeriksaanController extends Controller
         return view('dokter.pemeriksaan.create', compact('pendaftaran', 'obats', 'riwayatSebelumnya'));
     }
 
-    /**
-     * Simpan Hasil Pemeriksaan & Rekam Medis Pasien
-     */
+
+    //Simpan Hasil Pemeriksaan & Rekam Medis Pasien
     public function storePemeriksaan(Request $request, $id)
     {
         $request->validate([
@@ -113,9 +109,7 @@ class DokterPemeriksaanController extends Controller
             ->with('success', "Pemeriksaan pasien antrean {$pendaftaran->no_antrean} berhasil disimpan dan status diperbarui menjadi Selesai.");
     }
 
-    /**
-     * Riwayat Rekam Medis Pasien Spesifik
-     */
+    //Riwayat Rekam Medis Pasien Spesifik
     public function riwayatMedisPasien($pasien_id)
     {
         $pasien = Pasien::with('user')->findOrFail($pasien_id);

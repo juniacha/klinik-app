@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <!-- STATUS ANTREAN HARI INI & AKSES CEPAT -->
+    <!-- STATUS ANTREAN HARI INI -->
     <div class="row g-4 mb-4">
         <div class="col-md-6">
             <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">

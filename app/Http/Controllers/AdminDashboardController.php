@@ -12,7 +12,7 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
-        // 1. Hitung Statistik Ringkasan Dashboard Admin
+        //Hitung Statistik Ringkasan Dashboard Admin
         $totalPasien = Pasien::count();
         $totalDokter = Dokter::count();
         $kunjunganHariIni = Pendaftaran::whereDate('tgl_periksa', now()->today())->count();
@@ -27,10 +27,10 @@ class AdminDashboardController extends Controller
             ->where('status', 'selesai')
             ->count();
 
-        // 2. Hitung Total Seluruh Data Obat yang Terdaftar (Ubah nama variabel jadi $totalObat)
+        //Hitung Total Seluruh Data Obat yang Terdaftar
         $totalObat = Obat::count();
 
-        // 3. Ambil Daftar Antrean Hari Ini
+        //Ambil Daftar Antrean Hari Ini
         $antreanTerbaru = Pendaftaran::with(['pasien.user', 'dokter.user'])
             ->whereDate('tgl_periksa', now()->today())
             ->latest()

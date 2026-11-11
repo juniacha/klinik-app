@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <!-- Input 1: Keluhan Pasien -->
+                    <!-- Keluhan Pasien -->
                     <div class="mb-3">
                         <label for="keluhan" class="form-label text-xs font-bold text-hera-dark">Keluhan Pasien</label>
                         <textarea name="keluhan" id="keluhan" rows="2"
@@ -42,7 +42,7 @@
                         @enderror
                     </div>
 
-                    <!-- Input 2: Hasil Diagnosa -->
+                    <!-- Hasil Diagnosa -->
                     <div class="mb-3">
                         <label for="diagnosa" class="form-label text-xs font-bold text-hera-dark">Hasil Diagnosa
                             Dokter</label>
@@ -54,7 +54,7 @@
                         @enderror
                     </div>
 
-                    <!-- Input 3: Tindakan Medis -->
+                    <!-- Tindakan Medis -->
                     <div class="mb-4">
                         <label for="tindakan" class="form-label text-xs font-bold text-hera-dark">Tindakan Medis /
                             Perawatan</label>
@@ -67,7 +67,7 @@
                         @enderror
                     </div>
 
-                    <!-- Input 4: Modul Resep Obat & Dosis -->
+                    <!-- Modul Resep Obat & Dosis -->
                     <div class="border-top pt-3 mb-4">
                         <h2 class="h6 font-bold text-hera-dark mb-3">Resep Obat, Dosis & Aturan Penggunaan</h2>
 
@@ -98,7 +98,7 @@
                             Tambah Obat Lain</button>
                     </div>
 
-                    <!-- Input 5: Catatan Dokter -->
+                    <!-- Catatan Dokter -->
                     <div class="mb-4">
                         <label for="catatan_dokter" class="form-label text-xs font-bold text-hera-dark">Catatan Tambahan
                             Dokter (Opsional)</label>

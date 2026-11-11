@@ -102,7 +102,6 @@ class PasienController extends Controller
         return redirect()->route('admin.pasien.index')->with('success', 'Data pasien berhasil dihapus.');
     }
 
-    // Melihat Riwayat Kunjungan Pasien
     public function riwayat(Pasien $pasien)
     {
         $pasien->load('user');

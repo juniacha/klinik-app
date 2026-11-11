@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RekamMedisController extends Controller
 {
-    // 3. Rekam Medis Pasien
+    //Rekam Medis Pasien
     public function indexPasien()
     {
         $user = Auth::user();

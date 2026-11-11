@@ -1,30 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-// Import Controller Autentikasi
 use App\Http\Controllers\AuthController;
-
-// Import Controller Role Pasien
 use App\Http\Controllers\PasienDashboardController;
 use App\Http\Controllers\RekamMedisController;
-
-// Import Controller Role Dokter
 use App\Http\Controllers\DokterPemeriksaanController;
 use App\Http\Controllers\DokterJadwalController;
-
-// Import Controller Role Admin & Master Data
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes - HERA Klinik Application (Lengkap & Terproteksi)
-|--------------------------------------------------------------------------
-*/
 
 // 1. Landing Page (Pengarah ke Login)
 Route::get('/', function () {
@@ -55,9 +41,7 @@ Route::get('/dashboard', function () {
 // 4. Area Terproteksi (Wajib Login + Prevent Back-Forward Cache)
 Route::middleware(['auth', \App\Http\Middleware\PreventBackHistory::class])->group(function () {
 
-    // =========================================================================
-    // ROLE: PASIEN
-    // =========================================================================
+    //role pasien
     Route::middleware(['role:pasien'])->prefix('pasien')->as('pasien.')->group(function () {
         // Beranda Pasien
         Route::get('/dashboard', [PasienDashboardController::class, 'index'])->name('dashboard');
@@ -81,9 +65,7 @@ Route::middleware(['auth', \App\Http\Middleware\PreventBackHistory::class])->gro
         Route::put('/profil/password', [PasienDashboardController::class, 'updatePassword'])->name('profil.password');
     });
 
-    // =========================================================================
-    // ROLE: DOKTER
-    // =========================================================================
+    //role dokter
     Route::middleware(['role:dokter'])->prefix('dokter')->as('dokter.')->group(function () {
         Route::get('/dashboard', [DokterPemeriksaanController::class, 'index'])->name('dashboard');
         Route::get('/pemeriksaan/{pendaftaran}', [DokterPemeriksaanController::class, 'periksa'])->name('pemeriksaan.create');
@@ -94,9 +76,7 @@ Route::middleware(['auth', \App\Http\Middleware\PreventBackHistory::class])->gro
         Route::patch('/jadwal/ketersediaan', [DokterJadwalController::class, 'updateKetersediaan'])->name('jadwal.update-ketersediaan');
     });
 
-    // =========================================================================
-    // ROLE: ADMIN
-    // =========================================================================
+    //role admin
     Route::middleware(['role:admin'])->prefix('admin')->as('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
@@ -112,9 +92,6 @@ Route::middleware(['auth', \App\Http\Middleware\PreventBackHistory::class])->gro
         Route::get('/laporan', [AdminDashboardController::class, 'laporan'])->name('laporan');
     });
 
-    // =========================================================================
-    // ALIAS ROUTE GLOBAL ADMIN (SINKRONISASI TAMPILAN SHORTHAND LAMA)
-    // =========================================================================
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/admin-pendaftaran-list', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
         Route::get('/admin-pendaftaran-create', [PendaftaranController::class, 'create'])->name('pendaftaran.create');

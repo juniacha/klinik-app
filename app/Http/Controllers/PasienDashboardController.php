@@ -10,9 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class PasienDashboardController extends Controller
 {
-    /**
-     * Menampilkan Dashboard Utama Pasien
-     */
+
+    //Menampilkan Dashboard Utama Pasien
     public function index()
     {
         $user = Auth::user();
@@ -34,9 +33,8 @@ class PasienDashboardController extends Controller
         return view('pasien.dashboard', compact('pasien', 'antreanAktif', 'riwayatPendaftaran'));
     }
 
-    /**
-     * Menampilkan Halaman Profil Pasien (Mendukung route /pasien/profil)
-     */
+
+    //Menampilkan Halaman Profil Pasien (Mendukung route /pasien/profil)
     public function profil()
     {
         $user = Auth::user();
@@ -45,17 +43,13 @@ class PasienDashboardController extends Controller
         return view('pasien.profil.edit', compact('user', 'pasien'));
     }
 
-    /**
-     * Alias method untuk edit profil (Mendukung route /pasien/profil/edit)
-     */
+    //Alias method untuk edit profil (Mendukung route /pasien/profil/edit)
     public function editProfil()
     {
         return $this->profil();
     }
 
-    /**
-     * Mengubah Informasi Pribadi Pasien
-     */
+    //Mengubah Informasi Pribadi Pasien
     public function updateProfil(Request $request)
     {
         $user = Auth::user();
@@ -94,9 +88,8 @@ class PasienDashboardController extends Controller
         return redirect()->back()->with('success', 'Data profil berhasil diperbarui.');
     }
 
-    /**
-     * Mengubah Kata Sandi Pasien
-     */
+    //Mengubah Kata Sandi Pasien
+
     public function updatePassword(Request $request)
     {
         $request->validate([

@@ -59,7 +59,7 @@
             </div>
 
         @else
-            <!-- LANGKAH 2: FORM BOOKING (DOKTER OTOMATIS) -->
+            <!-- FORM BOOKING -->
             <form action="{{ route('pasien.booking.store') }}" method="POST">
                 @csrf
 
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="row g-4">
-                    <!-- FORM KIRI: DATA PASIEN, TANGGAL & KELUHAN -->
+                    <!-- DATA PASIEN, TANGGAL & KELUHAN -->
                     <div class="col-lg-7">
                         <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
                             <h2 class="h6 font-bold text-hera-dark mb-3 border-bottom pb-2">Data Pasien & Rencana Kunjungan

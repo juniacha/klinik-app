@@ -4,7 +4,7 @@
 
 @section('content')
     <style>
-        /* Styling Sentuhan Sage Green & Panel Profil Kanan */
+        /* Profil Kanan */
         .bg-sage {
             background-color: #889B83 !important;
         }
@@ -43,7 +43,7 @@
     <div class="row g-4">
         <div class="col-lg-8 col-xl-9">
 
-            <!-- 1. WELCOME BANNER DOKTER (Sage Green Gradient) -->
+            <!-- WELCOME BANNER DOKTER -->
             <div class="card-custom p-4 p-md-5 text-white mb-4 position-relative overflow-hidden"
                 style="background: linear-gradient(135deg, #5C6F57 0%, #889B83 100%); border-radius: 20px;">
                 <div class="row align-items-center">
@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <!-- 2. RINGKASAN STATISTIK PASIEN HARI INI -->
+            <!-- RINGKASAN STATISTIK PASIEN HARI INI -->
             <div class="row g-3 mb-4">
                 <div class="col-6 col-sm-3">
                     <div class="card-custom p-3 text-center">
@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-            <!-- 3. TABEL DAFTAR ANTREAN PASIEN HARI INI -->
+            <!-- TABEL DAFTAR ANTREAN PASIEN HARI INI -->
             <div class="card-custom p-4 mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
@@ -146,7 +146,6 @@
                                                 class="btn btn-sm btn-primary font-bold px-3 text-xs">
                                                 Periksa Pasien
                                             </a>
-                                            <!-- PERBAIKAN: dokter.pasien.rekam-medis -->
                                             <a href="{{ route('dokter.pasien.rekam-medis', $a->pasien_id) }}"
                                                 class="btn btn-sm btn-outline-info text-xs">
                                                 Riwayat
@@ -164,7 +163,7 @@
 
         <div class="col-lg-4 col-xl-3">
 
-            <!-- CARD 1: MY PROFILE DOKTER -->
+            <!-- PROFILE DOKTER -->
             <div class="card-profile-dokter p-4 mb-4 text-center">
                 <div class="text-xs font-bold text-muted text-uppercase tracking-wider mb-3">My Profile</div>
 
@@ -205,7 +204,7 @@
                 </a>
             </div>
 
-            <!-- CARD 2: PASIEN TERAKHIR / RIWAYAT KUNJUNGAN SELESAI -->
+            <!-- PASIEN TERAKHIR / RIWAYAT KUNJUNGAN SELESAI -->
             <div class="card-profile-dokter p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-xs font-bold text-muted text-uppercase tracking-wider">Pasien Terakhir</span>
@@ -222,7 +221,6 @@
                                 <div class="text-[10px] text-muted">
                                     {{ \Carbon\Carbon::parse($rk->updated_at)->format('H:i WIB') }}</div>
                             </div>
-                            <!-- PERBAIKAN: dokter.pasien.rekam-medis -->
                             <a href="{{ route('dokter.pasien.rekam-medis', $rk->pasien_id) }}"
                                 class="btn btn-xs btn-outline-primary py-0.5 px-2 text-[10px]">
                                 Detail

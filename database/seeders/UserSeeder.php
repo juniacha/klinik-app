@@ -12,25 +12,25 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Akun Admin
+        //Akun Admin
         User::firstOrCreate(
             ['email' => 'admin@hera.com'],
             [
-                'name'     => 'Admin HERA',
+                'name' => 'Admin HERA',
                 'password' => Hash::make('password'),
-                'role'     => 'admin',
-                'no_hp'    => '081234567890',
+                'role' => 'admin',
+                'no_hp' => '081234567890',
             ]
         );
 
-        // 2. Akun Dokter
+        //Akun Dokter
         $userDokter = User::firstOrCreate(
             ['email' => 'dokter@hera.com'],
             [
-                'name'     => 'Dr. Budi Santoso, Sp.PD',
+                'name' => 'Dr. Budi Santoso, Sp.PD',
                 'password' => Hash::make('password'),
-                'role'     => 'dokter',
-                'no_hp'    => '081298765432',
+                'role' => 'dokter',
+                'no_hp' => '081298765432',
             ]
         );
 
@@ -38,18 +38,18 @@ class UserSeeder extends Seeder
             ['user_id' => $userDokter->id],
             [
                 'nama_dokter' => 'Dr. Budi Santoso, Sp.PD',
-                'spesialis'   => 'Poli Penyakit Dalam',
+                'spesialis' => 'Poli Penyakit Dalam',
             ]
         );
 
-        // 3. Akun Pasien
+        //Akun Pasien
         $userPasien = User::firstOrCreate(
             ['email' => 'pasien@hera.com'],
             [
-                'name'     => 'Siti Rahma',
+                'name' => 'Siti Rahma',
                 'password' => Hash::make('password'),
-                'role'     => 'pasien',
-                'no_hp'    => '081311223344',
+                'role' => 'pasien',
+                'no_hp' => '081311223344',
             ]
         );
 
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
             ['user_id' => $userPasien->id],
             [
                 'no_rm' => 'RM-000001',
-                'nik'   => '3171012345678901',
+                'nik' => '3171012345678901',
             ]
         );
     }

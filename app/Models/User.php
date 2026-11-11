@@ -25,13 +25,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    // Relasi ke Pasien (Jika role = pasien)
+    // Relasi ke Pasien 
     public function pasien()
     {
         return $this->hasOne(Pasien::class);
     }
 
-    // Relasi ke Dokter (Jika role = dokter)
+    // Relasi ke Dokter 
     public function dokter()
     {
         return $this->hasOne(Dokter::class);

@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckRole
 {
-    /**
-     * Memeriksa apakah role user sesuai dengan akses route
-     */
+    //memeriksa apakah role user sesuai dengan akses route
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (!$request->user() || $request->user()->role !== $role) {

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Obat extends Model
 {
     use HasFactory;
-
-    // Menghubungkan eksplisit ke tabel 'obats'
     protected $table = 'obats';
 
     protected $fillable = [

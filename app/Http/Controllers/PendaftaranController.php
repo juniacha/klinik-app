@@ -10,7 +10,7 @@ use App\Models\Dokter;
 
 class PendaftaranController extends Controller
 {
-    /*1. Halaman Daftar Antrean & Pendaftaran*/
+    //Halaman Daftar Antrean & Pendaftaran
     public function index()
     {
         $pendaftaran = Pendaftaran::with(['pasien.user', 'dokter'])
@@ -24,7 +24,7 @@ class PendaftaranController extends Controller
         return view('pendaftaran.index', compact('pendaftaran'));
     }
 
-    /* 2. Form Booking Antrean Mandiri Pasien*/
+    //Form Booking Antrean Mandiri Pasien
     public function createPasien(Request $request)
     {
         $user = Auth::user();
@@ -46,7 +46,7 @@ class PendaftaranController extends Controller
         return view('pasien.pendaftaran.create', compact('pasien', 'dokter', 'selectedPoli'));
     }
 
-    /** 3. Simpan Data Pendaftaran Antrean Pasien*/
+    //Simpan Data Pendaftaran Antrean Pasien
     public function storePasien(Request $request)
     {
         $request->validate([
@@ -80,7 +80,7 @@ class PendaftaranController extends Controller
         return redirect()->route('pasien.dashboard')->with('success', "Booking berhasil! Nomor Antrean Anda: {$noAntrean}");
     }
 
-    /*4. Update Status Antrean oleh Admin*/
+    //Update Status Antrean oleh Admin
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
