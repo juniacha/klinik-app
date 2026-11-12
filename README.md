@@ -1,58 +1,34 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HERA Klinik App - Sistem Informasi Klinik Sederhana
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi berbasis web untuk manajemen operasional klinik yang dibangun menggunakan framework **Laravel** (Arsitektur MVC, Blade Template, Bootstrap 5, DataTables, dan MySQL) untuk memenuhi tugas UTS Pemrograman Web Tingkat Mahir.
 
-## About Laravel
+## Fitur & Pembagian Peran (Role)
+* **Admin:** Mengelola Master Data Obat, Dokter, dan Pasien (CRUD + DataTables), serta memverifikasi dan memperbarui status antrean pendaftaran.
+* **Dokter:** Melihat jadwal antrean pemeriksaan hari ini, menginput hasil pemeriksaan medis (keluhan, diagnosa, tindakan medis), menulis resep obat, serta mengatur jadwal praktik.
+* **Pasien:** Melakukan registrasi mandiri dengan penerbitan Nomor Rekam Medis (`RM-XXXXXX`) otomatis, booking dokter berdasarkan Poliklinik dengan nomor antrean otomatis (`ANT-001`), melihat riwayat rekam medis beserta resep obat, dan mengelola profil.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Cara Instalasi & Menjalankan Aplikasi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **Clone Repository**
+   * `git clone https://github.com/juniacha/klinik-app.git`
+   * `cd klinik-app`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+2. **Install Dependensi PHP**
+   * `composer install`
 
-## Learning Laravel
+3. **Konfigurasi Environment**
+   * Salin file `.env.example` menjadi `.env`: `cp .env.example .env`
+   * Buat database kosong baru di MySQL / phpMyAdmin dengan nama `hera_db` (sesuaikan dengan `DB_DATABASE` pada file `.env`).
+   * Generate Application Key: `php artisan key:generate`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+4. **Migrasi Database & Seeder Akun Demo**
+   * `php artisan migrate:fresh --seed`
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+5. **Jalankan Server Lokal**
+   * `php artisan serve`
+   * Buka browser dan akses `http://127.0.0.1:8000`
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Akun Demo (Default Seeder)
+* **Admin:** `admin@hera.com` | Password: `password`
+* **Dokter:** `dokter@hera.com` | Password: `password`
+* **Pasien:** `pasien@hera.com` | Password: `password`
